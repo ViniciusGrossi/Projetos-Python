@@ -13,7 +13,6 @@ while True:
     i += 1 
   print("") 
   print("Escolha a operação que deseja realizar:")
-  print(op_string)
   
   op = int(input())
   op_string = list(operations.keys())[op]   # transforma o operations.keys() em lista e pega o index que o op fornece por meio do input e junta com o index da lista
@@ -40,7 +39,7 @@ while True:
   print('') 
   print('{} {} {} = {}'.format(v1, op_string, v2, result))
   
-  print('Deseja encerrar suas operações? Se sim digite 1') 
+  print('Digite 0 para SAIR | Digite 1 para CONTINUAR') 
   sim = int(input()) 
   if sim == 1: 
     break
