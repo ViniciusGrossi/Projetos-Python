@@ -1,0 +1,35 @@
+from PIL import Image
+from pathlib import Path
+
+# Caminho da imagem de plano de fundo
+plano_de_fundo_path = Path(r"C:/Users/User/Documents/Python/Fundo.png")
+
+# Pasta contendo as imagens para colar
+pasta_imagens = Path(r"C:/Users/User/Documents/Python/Logos")
+
+# Abre a imagem de plano de fundo
+plano_de_fundo = Image.open(plano_de_fundo_path)
+plano_de_fundo = plano_de_fundo.convert("RGB")
+largura_plano_de_fundo, altura_plano_de_fundo = plano_de_fundo.size
+
+# Loop para percorrer todas as imagens na pasta
+for imagem_path in pasta_imagens.glob("*.png"):  # Altere "*.png" para o padrão das suas imagens
+    imagem = Image.open(imagem_path)
+    
+    # Cria uma pasta para a imagem
+    nome_pasta = imagem_path.stem
+    pasta_destino = Path(nome_pasta)
+    pasta_destino.mkdir(exist_ok=True)  # Cria a pasta se não existir
+    
+    # Cria uma cópia da imagem de plano de fundo
+    plano_de_fundo_iteracao = plano_de_fundo.copy()
+    
+    # Calcula as coordenadas para centralizar a imagem
+    x = (largura_plano_de_fundo - imagem.width) // 2
+    y = (altura_plano_de_fundo - imagem.height) // 2 - 120
+    
+    plano_de_fundo_iteracao.paste(imagem, (x, y), imagem)
+    
+    # Salva a imagem resultante na pasta
+    caminho_destino = pasta_destino / "imagem_resultante.jpg"
+    plano_de_fundo_iteracao.save(caminho_destino, "JPEG")
